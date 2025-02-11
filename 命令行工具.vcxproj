@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="basicCommandforFile.h" />
+    <ClInclude Include="cxxopts.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="命令行工具.cpp" />
