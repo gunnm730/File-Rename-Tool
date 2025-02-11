@@ -45,15 +45,28 @@ std::vector<fs::path> get_files(const std::string& dir_path) {
  */
 bool rename_file(const fs::path & old_path, const std::string& new_name) {
     try {
-        // 构造新的文件路径。
         fs::path new_path = old_path.parent_path() / new_name;
-        // 执行重命名操作。
+
+        // 如果新文件名已存在，添加序号 (例如：file.txt → file_1.txt)
+        int counter = 1;
+        while (fs::exists(new_path)) {
+            std::string stem = new_path.stem().string();
+            std::string ext = new_path.extension().string();
+
+            // 处理无扩展名的情况
+            if (ext.empty()) {
+                new_path = new_path.parent_path() / (stem + "_" + std::to_string(counter++));
+            }
+            else {
+                new_path = new_path.parent_path() / (stem + "_" + std::to_string(counter++) + ext);
+            }
+        }
+
         fs::rename(old_path, new_path);
         return true;
     }
     catch (const fs::filesystem_error& e) {
-        // 捕获并输出文件系统异常信息。
-        std::cerr << "Error renaming file: " << old_path << e.what() << std::endl;
+        std::cerr << " 错误详情: " << e.what();
         return false;
     }
 }
