@@ -1,4 +1,5 @@
 # 命令行工具
+Just a project for practise.No value for using.
     options.add_options()
         ("d,dir", "目标目录", cxxopts::value<std::string>()->default_value("."))
         ("p,prefix", "文件名前缀", cxxopts::value<std::string>()->default_value(""))
